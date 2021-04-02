@@ -16,43 +16,77 @@ class HomePage extends StatelessWidget {
 class MainWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: Icon(Icons.person),
-        title: Text("Chats"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            tabs: [
+              Tab(
+                text: "Chats",
+              ),
+              Tab(
+                text: "Status",
+              ),
+              Tab(
+                text: "Camera",
+              ),
+              Tab(
+                text: "Calls",
+              )
+            ],
           ),
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {},
-          ),
-        ],
-        backgroundColor: Colors.green,
-      ),
-      body: Center(
-        child: ListView(
+          leading: Icon(Icons.person),
+          title: Text("Chats"),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {},
+            ),
+          ],
+          backgroundColor: Colors.green,
+        ),
+        body: TabBarView(
           children: [
-            _listItem(),
-            _listItem(),
-            _listItem(),
-            _listItem(),
-            _listItem(),
-            _listItem(),
-            _listItem(),
-            _listItem(),
-            _listItem(),
-            _listItem(),
-            _listItem(),
+            buildCameraPage(),
+            buildChatsPage(),
+            buildStatusPage(),
+            buildCallsPage(),
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.green,
+          onPressed: () {},
+          child: Icon(Icons.add),
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.green,
-        onPressed: () {},
-        child: Icon(Icons.add),
+    );
+  }
+
+  Center buildCallsPage() => Center(child: Text("Calls"));
+
+  Center buildStatusPage() => Center(child: Text("Status"));
+
+  Center buildChatsPage() {
+    return Center(
+      child: ListView(
+        children: [
+          _listItem(),
+          _listItem(),
+          _listItem(),
+          _listItem(),
+          _listItem(),
+          _listItem(),
+          _listItem(),
+          _listItem(),
+          _listItem(),
+          _listItem(),
+          _listItem(),
+        ],
       ),
     );
   }
@@ -62,7 +96,7 @@ class MainWidget extends StatelessWidget {
       dense: true,
       minLeadingWidth: 12.0,
       leading: CircleAvatar(
-        child: Text("AW"),
+        child: Icon(Icons.ac_unit),
       ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +128,7 @@ class MainWidget extends StatelessWidget {
           Expanded(
             flex: 3,
             child: Text(
-              "etwin: Did you get that hdhshhssh",
+              "EVE: hey",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -128,4 +162,31 @@ class MainWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget buildCameraPage() {
+  return Scaffold(
+    body: Center(
+        child: IconButton(
+      icon: Icon(
+        Icons.camera_alt,
+        size: 80,
+      ),
+      onPressed: () {
+        Scaffold(
+          appBar: AppBar(
+            title: Text('you tapped me'),
+          ),
+          // Complete this code in the next step.
+        );
+        final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
+
+// Find the ScaffoldMessenger in the widget tree
+// and use it to show a SnackBar.
+        BuildContext context;
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        print("Eve you Tapped Me");
+      },
+    )),
+  );
 }
